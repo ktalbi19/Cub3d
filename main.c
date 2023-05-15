@@ -253,7 +253,7 @@ void	printf_map(char **map)
 	}
 	return ;
 }
-// A CORRIGER FULL ERREUR DEDANS
+
 char	*get_path(char *line)
 {
 	char	*ret;
@@ -262,12 +262,12 @@ char	*get_path(char *line)
 	int	k = 0;
 	int	z = 0;
 
-	while (line[i] != '.'){
-		i++; k++;}
+	while (line[i] != '.')
+		i++;
 	z = i;
 	while (line[i] !='\n')
 		i++;
-	ret = malloc(sizeof(char) * (i - k));
+	ret = malloc(sizeof(char) * (i + 1));
 	if (!ret)
 		return (NULL);
 	while (line[z] != '\n')
@@ -276,6 +276,7 @@ char	*get_path(char *line)
 		z++;
 		j++;
 	}
+	ret[j] = '\0';
 	printf("\n\n(((%s)))\n\n", ret);
 	return (ret);
 }
@@ -308,10 +309,10 @@ void	check_init_params(char **map, t_struct *p)
 	{
 		if (p->NO == NULL || p->SO == NULL || p->WE == NULL || p->EA == NULL)
 			str_comp(map[i], p);
-		printf("\n %s \n", p->NO);
-		printf("\n %s \n", p->SO);
-		printf("\n %s \n", p->WE);
-		printf("\n %s \n-------------\n", p->EA);
+		// printf("\n %s \n", p->NO);
+		// printf("\n %s \n", p->SO);
+		// printf("\n %s \n", p->WE);
+		// printf("\n %s \n-------------\n", p->EA);
 		if (p->NO != NULL && p->SO != NULL && p->WE != NULL && p->EA != NULL)//&& p->F != NULL && p->C != NULL)
 			printf("\n%s\n%s\n%s\n%s\n************\n", p->NO, p->SO, p->WE, p->EA);
 	}
