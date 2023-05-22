@@ -3,17 +3,27 @@
 #include <fcntl.h>
 #include <stdarg.h>
 #include <stdlib.h>
+#include <limits.h>
 #define BUFFER_SIZE 64
 
 typedef struct s_struct
 {
+    char    **map;
 	char	*NO;
 	char	*SO;
 	char	*WE;
 	char	*EA;
-	char	*F;
-	char	*C;
+	int     F;
+	int     C;
 }	t_struct;
+
+int	ft_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+	else
+		return (0);
+}
 
 int	ft_strlen(char *str)
 {
@@ -23,6 +33,34 @@ int	ft_strlen(char *str)
 	while (str[i])
 		i++;
 	return (i);
+}
+
+int	ft_atoi(const char *str)
+{
+	long int	res;
+	long int	sign;
+
+	res = 0;
+	sign = 1;
+	while (*str == '\t' || *str == '\n' || *str == '\v'
+		|| *str == '\f' || *str == '\r' || *str == ' ')
+		str++;
+	if (*str == '+' || *str == '-')
+	{
+		if (*str == '-')
+			sign *= -1;
+		str++;
+	}
+	while (*str >= '0' && *str <= '9')
+	{
+		res = (res * 10) + (*str - 48);
+		if (res * sign > INT_MAX)
+			return (-1);
+		if (res * sign < INT_MIN)
+			return (0);
+		str++;
+	}
+	return (res * sign);
 }
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
@@ -116,7 +154,7 @@ int	ft_newread(int fd, char **oldread)
 		return (-1);
 	i = 0;
 	while (oldread[0][i])
-	{	
+	{
 		output[i] = oldread[0][i];
 		i++;
 	}
@@ -205,7 +243,7 @@ static int	file_linecount(char *file)
 	int		linecount;
 	int		fd;
 	int		readcount;
-	char	c;	
+	char	c;
 
 	fd = open(file, O_RDONLY);
 	if (!fd)
@@ -254,12 +292,62 @@ void	printf_map(char **map)
 	return ;
 }
 
+void    get_color2(char nbr[], char nbg[], char nbb[], t_struct *p, char c)
+{
+    printf("BOURBIER\n");
+    int r;
+    int g;
+    int b;
+    int output;
+
+    r = ft_atoi(nbr);
+    g = ft_atoi(nbg);
+    b = ft_atoi(nbb);
+    output = 256 * 256 * r + 256 * g + b;
+    if (c == 'F')
+        p->F = output;
+    else
+        p->C = output;
+
+}
+
+void    get_color(char *line, t_struct *p, char c)
+{
+    printf("AAAAAAAA\n");
+    int     i = 0;
+    int     j = 0;
+    char    nbr[3];
+    char    nbg[3];
+    char    nbb[3];
+
+    while (!ft_isdigit(line[i]))
+        i++;
+    while (ft_isdigit(line[i])){
+        printf("%c\n", line[i]);
+        nbr[j++] = line[i++];
+    }
+    printf("ABC\n");
+    nbr[j] = '\0';
+    j = 0;
+    while (!ft_isdigit(line[i]))
+        i++;
+    while (ft_isdigit(line[i]))
+        nbg[j++] = line[i++];
+    nbg[j++] = '\0';
+    j = 0;
+    while (!ft_isdigit(line[i]))
+        i++;
+    while (ft_isdigit(line[i]))
+        nbb[j++] = line[i++];
+    nbb[j] = '\0';
+    get_color2(nbr, nbg, nbb, p, c);
+}
+
 char	*get_path(char *line)
 {
 	char	*ret;
 	int	j = 0;
 	int	i = 0;
-	int	k = 0;
 	int	z = 0;
 
 	while (line[i] != '.')
@@ -291,11 +379,61 @@ void	str_comp(char *line, t_struct *p)
 		p->WE = get_path(line);
 	if (ft_strncmp("EA", line, 2) == 0)
 		p->EA = get_path(line);
-	// if (ft_strncmp("F", line, 1) == 0)
-	// 	p->F = get_path(line);
-	// if (ft_strncmp("C", line, 1) == 0)
-	// 	p->C = get_path(line);
+	if (ft_strncmp("F", line, 1) == 0)
+		get_color(line, p, 'F');
+	if (ft_strncmp("C", line, 1) == 0)
+		get_color(line, p, 'C');
 	return ;
+}
+
+int ft_countlines(char **map, int pos_map)
+{
+    int i;
+
+    i = 0;
+    while (map[pos_map++])
+        i++;
+    return (i);
+}
+
+int ft_countchar(char *line)
+{
+    int i;
+
+    i = 0;
+    while (line[i])
+        i++;
+    return (i);
+}
+
+char    **get_map(char **map, int pos_map, t_struct *p)
+{
+    char    **new;
+    int     x = 0;
+    int     y = 0;
+    int     nb_lines;
+
+    nb_lines = ft_countlines(map, pos_map);
+    printf("%i\n", nb_lines);
+    new = malloc(sizeof(char *) * nb_lines + 1);
+    if (!new)
+        return (NULL);
+    new[nb_lines] = NULL;
+    printf("%s", new[y]);
+    while (new[y])
+    {
+        printf("OUIOUIOUI\n");
+        x = -1;
+        new[y] = malloc(sizeof(char) * ft_countchar(map[pos_map]) + 1);
+        if (!new[y])
+            return (NULL);
+        while (new[y][++x]){
+            new[y][x] = map[pos_map][x];}
+        pos_map++;
+        printf("\n////\n%s\n", new[y]);
+        y++;
+    }
+    return (new);
 }
 
 void	check_init_params(char **map, t_struct *p)
@@ -307,15 +445,16 @@ void	check_init_params(char **map, t_struct *p)
 
 	while (map[++i])
 	{
-		if (p->NO == NULL || p->SO == NULL || p->WE == NULL || p->EA == NULL)
+		if (p->NO == NULL || p->SO == NULL || p->WE == NULL || p->EA == NULL || p->C == 0 || p->F == 0)
 			str_comp(map[i], p);
-		// printf("\n %s \n", p->NO);
-		// printf("\n %s \n", p->SO);
-		// printf("\n %s \n", p->WE);
-		// printf("\n %s \n-------------\n", p->EA);
-		if (p->NO != NULL && p->SO != NULL && p->WE != NULL && p->EA != NULL)//&& p->F != NULL && p->C != NULL)
-			printf("\n%s\n%s\n%s\n%s\n************\n", p->NO, p->SO, p->WE, p->EA);
-	}
+            printf("%s \n", p->NO);printf("%s \n", p->SO);printf("%s \n", p->WE);printf("%s \n", p->EA);printf("%i \n%i \n------------\n", p->C, p->F);
+        if (p->NO && p->SO && p->WE && p->EA && p->C && p->F)
+            break ;
+    }
+    p->map = get_map(map, i, p);
+    printf("\n********************\n");
+    printf_map(p->map);
+    printf("ALLO???");
 }
 
 void	init(t_struct *p)
@@ -324,8 +463,8 @@ void	init(t_struct *p)
 	p->SO = NULL;
 	p->WE = NULL;
 	p->EA = NULL;
-	p->C = NULL;
-	p->F = NULL;
+	p->C = 0;
+	p->F = 0;
 }
 
 int	main(int ac, char **av)
