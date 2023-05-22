@@ -294,7 +294,6 @@ void	printf_map(char **map)
 
 void    get_color2(char nbr[], char nbg[], char nbb[], t_struct *p, char c)
 {
-    printf("BOURBIER\n");
     int r;
     int g;
     int b;
@@ -313,7 +312,6 @@ void    get_color2(char nbr[], char nbg[], char nbb[], t_struct *p, char c)
 
 void    get_color(char *line, t_struct *p, char c)
 {
-    printf("AAAAAAAA\n");
     int     i = 0;
     int     j = 0;
     char    nbr[3];
@@ -323,10 +321,8 @@ void    get_color(char *line, t_struct *p, char c)
     while (!ft_isdigit(line[i]))
         i++;
     while (ft_isdigit(line[i])){
-        printf("%c\n", line[i]);
         nbr[j++] = line[i++];
     }
-    printf("ABC\n");
     nbr[j] = '\0';
     j = 0;
     while (!ft_isdigit(line[i]))
@@ -365,7 +361,6 @@ char	*get_path(char *line)
 		j++;
 	}
 	ret[j] = '\0';
-	printf("\n\n(((%s)))\n\n", ret);
 	return (ret);
 }
 
@@ -413,24 +408,23 @@ char    **get_map(char **map, int pos_map, t_struct *p)
     int     y = 0;
     int     nb_lines;
 
+    pos_map++;
     nb_lines = ft_countlines(map, pos_map);
-    printf("%i\n", nb_lines);
     new = malloc(sizeof(char *) * nb_lines + 1);
     if (!new)
         return (NULL);
     new[nb_lines] = NULL;
     printf("%s", new[y]);
-    while (new[y])
+    while (map[pos_map])
     {
-        printf("OUIOUIOUI\n");
         x = -1;
         new[y] = malloc(sizeof(char) * ft_countchar(map[pos_map]) + 1);
         if (!new[y])
             return (NULL);
-        while (new[y][++x]){
+        while (map[pos_map][++x]){
             new[y][x] = map[pos_map][x];}
+        //new[y][x] = '\0';
         pos_map++;
-        printf("\n////\n%s\n", new[y]);
         y++;
     }
     return (new);
@@ -443,18 +437,22 @@ void	check_init_params(char **map, t_struct *p)
 	z = 0;
 	i = -1;
 
+    printf("_0_0_0_0_0_0_0_0\n");
+    printf_map(map);
+    printf("_0_0_0_0_0_0_0_0\n");
 	while (map[++i])
 	{
 		if (p->NO == NULL || p->SO == NULL || p->WE == NULL || p->EA == NULL || p->C == 0 || p->F == 0)
 			str_comp(map[i], p);
-            printf("%s \n", p->NO);printf("%s \n", p->SO);printf("%s \n", p->WE);printf("%s \n", p->EA);printf("%i \n%i \n------------\n", p->C, p->F);
         if (p->NO && p->SO && p->WE && p->EA && p->C && p->F)
             break ;
     }
+    printf("*^^^^^^^^^^^^\n");
+    printf_map(map);
+    printf("^^^^^^^^^^^^*\n");
     p->map = get_map(map, i, p);
     printf("\n********************\n");
     printf_map(p->map);
-    printf("ALLO???");
 }
 
 void	init(t_struct *p)
