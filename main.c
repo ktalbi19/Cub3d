@@ -4,6 +4,7 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <string.h>
 #define BUFFER_SIZE 64
 
 typedef struct s_struct
@@ -366,17 +367,17 @@ char	*get_path(char *line)
 
 void	str_comp(char *line, t_struct *p)
 {
-	if (ft_strncmp("NO", line, 2) == 0)
+	if (strcmp("NO", line) == 0)
 		p->NO = get_path(line);
-	if (ft_strncmp("SO", line, 2) == 0)
+	if (strcmp("SO", line) == 0)
 		p->SO = get_path(line);
-	if (ft_strncmp("WE", line, 2) == 0)
+	if (strcmp("WE", line) == 0)
 		p->WE = get_path(line);
-	if (ft_strncmp("EA", line, 2) == 0)
+	if (strcmp("EA", line) == 0)
 		p->EA = get_path(line);
-	if (ft_strncmp("F", line, 1) == 0)
+	if (strcmp("F", line) == 0)
 		get_color(line, p, 'F');
-	if (ft_strncmp("C", line, 1) == 0)
+	if (strcmp("C", line) == 0)
 		get_color(line, p, 'C');
 	return ;
 }
@@ -391,13 +392,16 @@ int ft_countlines(char **map, int pos_map)
     return (i);
 }
 
-int ft_countchar(char *line)
+int ft_countchar(char **map, int pos_map)
 {
     int i;
 
     i = 0;
-    while (line[i])
+	printf("%s\n", map[pos_map]);
+	printf("BLUBLUBLU2\n");
+    while (map[pos_map][i])
         i++;
+	printf("BLUBLUBLU3\n");
     return (i);
 }
 
@@ -418,7 +422,9 @@ char    **get_map(char **map, int pos_map, t_struct *p)
     while (map[pos_map])
     {
         x = -1;
-        new[y] = malloc(sizeof(char) * ft_countchar(map[pos_map]) + 1);
+		printf("%s\n", map[pos_map]);
+        new[y] = malloc(sizeof(char) * ft_countchar(map, pos_map) + 1);
+		printf("BLUBLUBLU\n");
         if (!new[y])
             return (NULL);
         while (map[pos_map][++x]){
