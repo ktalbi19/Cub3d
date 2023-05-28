@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <string.h>
-#define BUFFER_SIZE 64
+#define BUFFER_SIZE 1
 
 typedef struct s_struct
 {
@@ -367,17 +367,17 @@ char	*get_path(char *line)
 
 void	str_comp(char *line, t_struct *p)
 {
-	if (strcmp("NO", line) == 0)
+	if (strncmp("NO", line, 2) == 0)
 		p->NO = get_path(line);
-	if (strcmp("SO", line) == 0)
+	if (strncmp("SO", line, 2) == 0)
 		p->SO = get_path(line);
-	if (strcmp("WE", line) == 0)
+	if (strncmp("WE", line, 2) == 0)
 		p->WE = get_path(line);
-	if (strcmp("EA", line) == 0)
+	if (strncmp("EA", line, 2) == 0)
 		p->EA = get_path(line);
-	if (strcmp("F", line) == 0)
+	if (strncmp("F", line, 1) == 0)
 		get_color(line, p, 'F');
-	if (strcmp("C", line) == 0)
+	if (strncmp("C", line, 1) == 0)
 		get_color(line, p, 'C');
 	return ;
 }
@@ -397,11 +397,8 @@ int ft_countchar(char **map, int pos_map)
     int i;
 
     i = 0;
-	printf("%s\n", map[pos_map]);
-	printf("BLUBLUBLU2\n");
     while (map[pos_map][i])
         i++;
-	printf("BLUBLUBLU3\n");
     return (i);
 }
 
@@ -412,19 +409,19 @@ char    **get_map(char **map, int pos_map, t_struct *p)
     int     y = 0;
     int     nb_lines;
 
+    printf("\n%i\n", pos_map);
     pos_map++;
     nb_lines = ft_countlines(map, pos_map);
     new = malloc(sizeof(char *) * nb_lines + 1);
     if (!new)
         return (NULL);
     new[nb_lines] = NULL;
-    printf("%s", new[y]);
+    printf("%s\n", new[y]);
+    printf("\n%s\n", map[pos_map]);
     while (map[pos_map])
     {
         x = -1;
-		printf("%s\n", map[pos_map]);
         new[y] = malloc(sizeof(char) * ft_countchar(map, pos_map) + 1);
-		printf("BLUBLUBLU\n");
         if (!new[y])
             return (NULL);
         while (map[pos_map][++x]){
@@ -442,6 +439,7 @@ void	check_init_params(char **map, t_struct *p)
 
 	z = 0;
 	i = -1;
+    j = 0;
 
     printf("_0_0_0_0_0_0_0_0\n");
     printf_map(map);
@@ -450,12 +448,17 @@ void	check_init_params(char **map, t_struct *p)
 	{
 		if (p->NO == NULL || p->SO == NULL || p->WE == NULL || p->EA == NULL || p->C == 0 || p->F == 0)
 			str_comp(map[i], p);
-        if (p->NO && p->SO && p->WE && p->EA && p->C && p->F)
+        if (p->NO != NULL && p->SO != NULL && p->WE != NULL && p->EA != NULL && p->C != 0 && p->F != 0)
+        {
+            printf("Here i am\n");
             break ;
+        }
     }
+    printf("\n---%s---\n", p->NO);
     printf("*^^^^^^^^^^^^\n");
     printf_map(map);
     printf("^^^^^^^^^^^^*\n");
+    printf("\n\n---\n%i\n---\n\n", i);
     p->map = get_map(map, i, p);
     printf("\n********************\n");
     printf_map(p->map);
