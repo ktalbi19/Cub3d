@@ -9,7 +9,7 @@ INCLUDE = -lmlx -framework OpenGL -framework AppKit
 
 $(NAME): $(OBJ)
 		make -C mlx
-		$(CC) $(CFLAGS)  $(INCLUDE) -o $(NAME) $(OBJ) mlx/libmlx.a
+		$(CC)  $(INCLUDE) -o $(NAME) $(OBJ) mlx/libmlx.a
 
 clean:
 	$(RM) *.o

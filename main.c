@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <string.h>
+#include "mlx/mlx.h"
 #define BUFFER_SIZE 1
 
 typedef struct s_struct
@@ -402,22 +403,19 @@ int ft_countchar(char **map, int pos_map)
     return (i);
 }
 
-char    **get_map(char **map, int pos_map, t_struct *p)
+char    **get_map(char **map, int pos_map)
 {
     char    **new;
     int     x = 0;
     int     y = 0;
     int     nb_lines;
 
-    printf("\n%i\n", pos_map);
     pos_map++;
     nb_lines = ft_countlines(map, pos_map);
     new = malloc(sizeof(char *) * nb_lines + 1);
     if (!new)
         return (NULL);
     new[nb_lines] = NULL;
-    printf("%s\n", new[y]);
-    printf("\n%s\n", map[pos_map]);
     while (map[pos_map])
     {
         x = -1;
@@ -435,33 +433,23 @@ char    **get_map(char **map, int pos_map, t_struct *p)
 
 void	check_init_params(char **map, t_struct *p)
 {
-	int	i, j, z;
+	int	i;
 
-	z = 0;
 	i = -1;
-    j = 0;
 
-    printf("_0_0_0_0_0_0_0_0\n");
-    printf_map(map);
-    printf("_0_0_0_0_0_0_0_0\n");
 	while (map[++i])
 	{
 		if (p->NO == NULL || p->SO == NULL || p->WE == NULL || p->EA == NULL || p->C == 0 || p->F == 0)
 			str_comp(map[i], p);
         if (p->NO != NULL && p->SO != NULL && p->WE != NULL && p->EA != NULL && p->C != 0 && p->F != 0)
         {
-            printf("Here i am\n");
             break ;
         }
     }
-    printf("\n---%s---\n", p->NO);
-    printf("*^^^^^^^^^^^^\n");
-    printf_map(map);
-    printf("^^^^^^^^^^^^*\n");
-    printf("\n\n---\n%i\n---\n\n", i);
-    p->map = get_map(map, i, p);
-    printf("\n********************\n");
-    printf_map(p->map);
+    p->map = get_map(map, i);
+	printf("*****************\n");
+	printf_map(p->map);
+	printf("%s --- %s --- %s --- %s", p->NO, p->SO, p->WE, p->EA);
 }
 
 void	init(t_struct *p)
@@ -474,11 +462,50 @@ void	init(t_struct *p)
 	p->F = 0;
 }
 
+typedef struct	s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		x;
+	int		y;
+	void	*mlx;
+	void	*mlx_win;
+}				t_data;
+
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
+}
+
+int	input(int key, t_data *img)
+{
+	if (key == 13){
+		my_mlx_pixel_put(img, img->x, img->y -= 50, 0x00FF0000);
+		mlx_put_image_to_window(img->mlx, img->mlx_win, img->img, 0, 0);}
+	else if (key == 1){
+		my_mlx_pixel_put(img, img->x, img->y += 50, 0x00FF0000);
+		mlx_put_image_to_window(img->mlx, img->mlx_win, img->img, 0, 0);}
+	else if (key == 0){
+		my_mlx_pixel_put(img, img->x -= 50, img->y, 0x00FF0000);
+		mlx_put_image_to_window(img->mlx, img->mlx_win, img->img, 0, 0);}
+	else if (key == 2){
+		my_mlx_pixel_put(img, img->x += 50, img->y, 0x00FF0000);
+		mlx_put_image_to_window(img->mlx, img->mlx_win, img->img, 0, 0);}
+	return (1);
+}
+
 int	main(int ac, char **av)
 {
 	int		i, fd;
 	char	**map;
 	t_struct	p;
+	(void)ac;
+	t_data	img;
 
 	map = alloc_columns(av[1]);
 	if (map == NULL)
@@ -489,8 +516,20 @@ int	main(int ac, char **av)
 		;
 	map[i] = NULL;
 	close(fd);
-	printf_map(map);
 	init(&p);
 	check_init_params(map, &p);
+	//***********************************************
+	//*						MLX						*
+	//***********************************************
+	img.x = 300;
+	img.y = 300;
+	img.mlx = mlx_init();
+	img.mlx_win = mlx_new_window(img.mlx, 1920, 1080, "Hello world!");
+	img.img = mlx_new_image(img.mlx, 1920, 1080);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	my_mlx_pixel_put(&img, img.x, img.y, 0x00FF0000);
+	mlx_put_image_to_window(img.mlx, img.mlx_win, img.img, 0, 0);
+	mlx_hook(img.mlx_win, 2, 0, input, &img);
+	mlx_loop(img.mlx);
 	return (0);
 }
