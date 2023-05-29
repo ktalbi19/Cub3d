@@ -485,15 +485,19 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 int	input(int key, t_data *img)
 {
 	if (key == 13){
+		my_mlx_pixel_put(img, img->x, img->y, 000000);
 		my_mlx_pixel_put(img, img->x, img->y -= 50, 0x00FF0000);
 		mlx_put_image_to_window(img->mlx, img->mlx_win, img->img, 0, 0);}
 	else if (key == 1){
+		my_mlx_pixel_put(img, img->x, img->y, 000000);
 		my_mlx_pixel_put(img, img->x, img->y += 50, 0x00FF0000);
 		mlx_put_image_to_window(img->mlx, img->mlx_win, img->img, 0, 0);}
 	else if (key == 0){
+		my_mlx_pixel_put(img, img->x, img->y, 000000);
 		my_mlx_pixel_put(img, img->x -= 50, img->y, 0x00FF0000);
 		mlx_put_image_to_window(img->mlx, img->mlx_win, img->img, 0, 0);}
 	else if (key == 2){
+		my_mlx_pixel_put(img, img->x, img->y, 000000);
 		my_mlx_pixel_put(img, img->x += 50, img->y, 0x00FF0000);
 		mlx_put_image_to_window(img->mlx, img->mlx_win, img->img, 0, 0);}
 	return (1);
