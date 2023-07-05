@@ -6,7 +6,7 @@
 /*   By: katalbi <katalbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 12:30:18 by katalbi           #+#    #+#             */
-/*   Updated: 2023/07/05 10:15:11 by katalbi          ###   ########.fr       */
+/*   Updated: 2023/07/05 11:14:19 by katalbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	rotate_right(t_game *game)
 	game->plane_x = p_x * cos(game->rotspeed) - p_y * sin(game->rotspeed);
 	game->plane_y = p_x * sin(game->rotspeed) + p_y * cos(game->rotspeed);
 }
+
 void	rotate_left(t_game *game)
 {
 	double	x;

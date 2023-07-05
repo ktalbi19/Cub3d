@@ -6,13 +6,13 @@
 /*   By: katalbi <katalbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 11:33:26 by katalbi           #+#    #+#             */
-/*   Updated: 2023/07/05 10:18:44 by katalbi          ###   ########.fr       */
+/*   Updated: 2023/07/05 11:13:55 by katalbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub.h"
 
-static char	*get_path_tex(char *str, char *cut)
+char	*get_path_tex(char *str, char *cut)
 {
 	while (*cut && *str)
 	{
@@ -26,7 +26,7 @@ static char	*get_path_tex(char *str, char *cut)
 	return (str);
 }
 
-static int	*load_texture(t_game *game, char *path, t_img *img)
+int	*load_texture(t_game *game, char *path, t_img *img)
 {
 	int	*res;
 	int	x;
@@ -52,7 +52,7 @@ static int	*load_texture(t_game *game, char *path, t_img *img)
 	return (res);
 }
 
-static void	get_textures(t_game *game, t_file file)
+void	get_textures(t_game *game, t_file file)
 {
 	t_img	tmp;
 	char	*path;

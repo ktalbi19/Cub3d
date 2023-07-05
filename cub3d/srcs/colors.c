@@ -6,13 +6,13 @@
 /*   By: katalbi <katalbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 11:51:17 by katalbi           #+#    #+#             */
-/*   Updated: 2023/07/04 11:52:19 by katalbi          ###   ########.fr       */
+/*   Updated: 2023/07/05 10:58:03 by katalbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub.h"
 
-static int	rgb_comma_check(char *str)
+int	rgb_comma_check(char *str)
 {
 	int	cnt;
 	int	i;
@@ -30,7 +30,7 @@ static int	rgb_comma_check(char *str)
 	return (1);
 }
 
-static int	rgb_check(char **split)
+int	rgb_check(char **split)
 {
 	int	i;
 	int	j;
@@ -55,7 +55,7 @@ static int	rgb_check(char **split)
 	return (0);
 }
 
-static int	rgb_atoi(char **split, int *r, int *g, int *b)
+int	rgb_atoi(char **split, int *r, int *g, int *b)
 {
 	int	res;
 	int	cnt;

@@ -6,14 +6,13 @@
 /*   By: katalbi <katalbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 13:34:03 by katalbi           #+#    #+#             */
-/*   Updated: 2023/07/05 10:20:25 by katalbi          ###   ########.fr       */
+/*   Updated: 2023/07/05 11:16:15 by katalbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_H
 # define CUB_H
 
-# include "../libft/libft.h"
 # include "../mlx/mlx.h"
 
 # include <unistd.h>
@@ -121,5 +120,59 @@ typedef struct s_dda
 	double	sidedist_y;
 	double	perpwalldist;
 }	t_dda;
+
+void	*ft_memset(void *s, int c, size_t n);
+void	ft_bzero(void *s, size_t n);
+void	*ft_calloc(size_t count, size_t size);
+void	check_info(t_file *file);
+char	*read_file(char *pathname);
+void	init_file(t_file *file);
+void	check_file(t_file *file, char *path);
+int		is_character(char c, int flag);
+void	size_map(t_file *file);
+void	get_map(t_file *file);
+void	check_surround(t_file *file, int x, int y);
+void	check_map(t_file *file);
+int		rgb_comma_check(char *str);
+int		rgb_check(char **split);
+int		rgb_atoi(char **split, int *r, int *g, int *b);
+int		get_rgb(char *str);
+void	print_err(char *str);
+int		close_game(t_game *game);
+void	background(t_game *game);
+void	display(t_game *game);
+void	update_game(t_game *game);
+int		loop(t_game *game);
+char	*get_path_tex(char *str, char *cut);
+int		*load_texture(t_game *game, char *path, t_img *img);
+void	get_textures(t_game *game, t_file file);
+void	init_game(t_game *game);
+void	make_game(t_game *game, t_file file);
+int		key_press(int keycode, t_game *game);
+int		key_release(int keycode, t_game *game);
+void	move_front(t_game *game);
+void	move_back(t_game *game);
+void	rotate_right(t_game *game);
+void	rotate_left(t_game *game);
+void	cal_color(t_dda *dda, t_game *game, int x);
+void	tex_input(t_dda *dda, t_game *game);
+void	hit_check(t_dda *dda, t_game *game);
+void	cal_sidedist(t_dda *dda, t_game *game);
+void	raycasting(t_game *game);
+void	set_dir_plane_n(t_game *game);
+void	set_dir_plane_s(t_game *game);
+void	set_dir_plane_w(t_game *game);
+void	set_dir_plane_e(t_game *game);
+int		get_size(char const *s, char c);
+char	*get_ptr_child(char const *s, char c, int i);
+void	get_ptr(char **ptr, char const *s, char c);
+void	free_ptr(char **ptr);
+char	**ft_split_remove_empty(char const *s, char c);
+int		ft_isdigit(int c);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+size_t	ft_strlen(const char *s);
+char	*ft_strjoin_free_s1(char *s1, char *s2);
+int		check_ext(char *str);
+int		**init_buf(void);
 
 #endif

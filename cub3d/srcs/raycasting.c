@@ -6,13 +6,13 @@
 /*   By: katalbi <katalbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 12:25:19 by katalbi           #+#    #+#             */
-/*   Updated: 2023/07/04 12:25:46 by katalbi          ###   ########.fr       */
+/*   Updated: 2023/07/05 11:14:27 by katalbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub.h"
 
-static void	cal_color(t_dda *dda, t_game *game, int x)
+void	cal_color(t_dda *dda, t_game *game, int x)
 {
 	if (dda->side == 0 || dda->side == 1)
 		dda->wallx = game->pos_y + dda->perpwalldist * dda->raydir_y;
@@ -38,7 +38,7 @@ static void	cal_color(t_dda *dda, t_game *game, int x)
 	}
 }
 
-static void	tex_input(t_dda *dda, t_game *game)
+void	tex_input(t_dda *dda, t_game *game)
 {
 	if (dda->side == 0 || dda->side == 1)
 		dda->perpwalldist = (dda->map_x - game->pos_x
@@ -63,7 +63,7 @@ static void	tex_input(t_dda *dda, t_game *game)
 		dda->texnum = SO;
 }
 
-static void	hit_check(t_dda *dda, t_game *game)
+void	hit_check(t_dda *dda, t_game *game)
 {
 	while (dda->hit == 0)
 	{
@@ -90,7 +90,7 @@ static void	hit_check(t_dda *dda, t_game *game)
 	}
 }
 
-static void	cal_sidedist(t_dda *dda, t_game *game)
+void	cal_sidedist(t_dda *dda, t_game *game)
 {
 	if (dda->raydir_x < 0)
 	{

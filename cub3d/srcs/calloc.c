@@ -6,11 +6,11 @@
 /*   By: katalbi <katalbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:58:05 by katalbi           #+#    #+#             */
-/*   Updated: 2023/07/04 10:58:24 by katalbi          ###   ########.fr       */
+/*   Updated: 2023/07/05 10:46:04 by katalbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <../include/cub.h>
+#include "../include/cub.h"
 
 void	*ft_memset(void *s, int c, size_t n)
 {

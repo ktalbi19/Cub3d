@@ -6,7 +6,7 @@
 /*   By: katalbi <katalbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 14:28:28 by katalbi           #+#    #+#             */
-/*   Updated: 2023/07/04 11:00:07 by katalbi          ###   ########.fr       */
+/*   Updated: 2023/07/05 11:13:11 by katalbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	check_info(t_file *file)
 			print_err("Error\ninvalid file");
 	}
 }
-
 
 char	*read_file(char *pathname)
 {

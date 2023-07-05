@@ -6,13 +6,13 @@
 /*   By: katalbi <katalbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 14:46:27 by katalbi           #+#    #+#             */
-/*   Updated: 2023/06/30 14:48:00 by katalbi          ###   ########.fr       */
+/*   Updated: 2023/07/05 11:14:36 by katalbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub.h"
 
-static int	get_size(char const *s, char c)
+int	get_size(char const *s, char c)
 {
 	int	res;
 	int	check;
@@ -36,7 +36,7 @@ static int	get_size(char const *s, char c)
 	return (res);
 }
 
-static char	*get_ptr_child(char const *s, char c, int i)
+char	*get_ptr_child(char const *s, char c, int i)
 {
 	char	*res;
 	int		start;
@@ -61,7 +61,7 @@ static char	*get_ptr_child(char const *s, char c, int i)
 	return (res);
 }
 
-static void	get_ptr(char **ptr, char const *s, char c)
+void	get_ptr(char **ptr, char const *s, char c)
 {
 	int	index;
 	int	check;
@@ -85,7 +85,7 @@ static void	get_ptr(char **ptr, char const *s, char c)
 	ptr[index] = 0;
 }
 
-static void	free_ptr(char **ptr)
+void	free_ptr(char **ptr)
 {
 	int	i;
 

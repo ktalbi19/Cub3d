@@ -6,13 +6,13 @@
 /*   By: katalbi <katalbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:25:03 by katalbi           #+#    #+#             */
-/*   Updated: 2023/07/04 11:03:22 by katalbi          ###   ########.fr       */
+/*   Updated: 2023/07/05 11:13:25 by katalbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub.h"
 
-static int	is_character(char c, int flag)
+int	is_character(char c, int flag)
 {
 	if (flag == 1 && !(c == '1' || c == '0' || c == ' '))
 		return (1);
@@ -21,7 +21,7 @@ static int	is_character(char c, int flag)
 	return (0);
 }
 
-static void	size_map(t_file *file)
+void	size_map(t_file *file)
 {
 	int	i;
 	int	j;
@@ -41,7 +41,7 @@ static void	size_map(t_file *file)
 	}
 }
 
-static void	get_map(t_file *file)
+void	get_map(t_file *file)
 {
 	int	i;
 	int	j;
@@ -69,7 +69,7 @@ static void	get_map(t_file *file)
 	file->map[i] = 0;
 }
 
-static void	check_surround(t_file *file, int x, int y)
+void	check_surround(t_file *file, int x, int y)
 {
 	if ((x == 0 || x == file->map_w - 1 || y == 0 || y == file->map_h - 1) \
 		&& !(file->map[y][x] == '1' || file->map[y][x] == ' '))

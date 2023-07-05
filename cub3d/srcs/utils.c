@@ -6,11 +6,13 @@
 /*   By: katalbi <katalbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 14:25:13 by katalbi           #+#    #+#             */
-/*   Updated: 2023/07/05 10:22:22 by katalbi          ###   ########.fr       */
+/*   Updated: 2023/07/05 11:15:10 by katalbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int check_ext(char *str)
+#include "../include/cub.h"
+
+int	check_ext(char *str)
 {
 	if (ft_strlen(str) < 4)
 		return (0);
