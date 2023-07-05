@@ -1,9 +1,9 @@
-NO ./textures/midnight.xpm
+NO ./textures/128_blockDiamond.xpm
 
-SO ./textures/orange.xpm
-WE ./textures/gray.xpm
+SO ./textures/128_bookshelf.xpm
+WE ./textures/128_grass_side.xpm
 
-EA ./textures/lightgray.xpm
+EA ./textures/128_oreGold.xpm
 
 F 51,51,51
 C 204,204,204
